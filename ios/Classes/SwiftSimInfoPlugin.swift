@@ -7,7 +7,16 @@ public class SwiftSimInfoPlugin: NSObject, FlutterPlugin {
     lazy var carrier: CTCarrier? = {
         let networkInfo = CTTelephonyNetworkInfo()
         if #available(iOS 12.0, *) {
-            return networkInfo.serviceSubscriberCellularProviders?.first?.value
+            guard let providers = networkInfo.serviceSubscriberCellularProviders else {
+                return nil
+            }
+            for provider in providers {
+                carrier = provider.value
+                if (carrier?.carrierName != nil) {
+                    return carrier;
+                }
+            }
+            return providers.first?.value
         } else {
             return networkInfo.subscriberCellularProvider
         }

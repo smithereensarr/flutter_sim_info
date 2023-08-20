@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
             child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text('VOIP : $_allowsVOIP '),
             Text('CarrierName : $_carrierName'),
